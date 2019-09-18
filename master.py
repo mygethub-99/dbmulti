@@ -5,10 +5,7 @@ Created on Wed Sep 11 09:16:01 2019
 @author: ow4253
 """
 import pandas as pd
-import geopandas as gpd
-from shapely.geometry import Point, Polygon
-
-from geopoints import buffer, geosites, bounds
+from geopoints import buffer, geosites, bounds, geoiqi
 from dbconnectFunc import iqiDB
 #from iqibands import uniband
 dates=['201907','201908']
@@ -25,11 +22,7 @@ for i, row in bound.iterrows():
     site='_'+str(i)
     df=iqiDB(bd,dates)
     usid_list.append(i)
-    geometry=[Point(xy) for xy in zip(df.long, df.lat)]
-    crs={'init':'epsg:4326'}
-    exec("{}=gpd.GeoDataFrame(df, crs=crs, geometry=geometry)" .format(site))
-    
-
+    exec("{}=geoiqi(df,site)" .format(site))
 
 #Plot sites and boundary of each site    
 ax=sites.plot(color='blue', edgecolor='black',markersize=5)
