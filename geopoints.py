@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 """
 Created on Mon Sep  9 16:15:41 2019
-Creates lat-long point data based on site file, a buffer and then bounds of buffer. Also creates geo data for iqi dataframes
+Creates lat-long point data based on site file, a buffer and then bounds of buffer
 @author: ow4253
 """
 import pandas as pd
@@ -45,7 +46,8 @@ def geosites():
     geofile=gpd.GeoDataFrame(filein, crs=crs, geometry=geometry)
     return geofile
 
-def geoiqi(df,site):
+def geoiqi(df):
     geometry=[Point(xy) for xy in zip(df.long, df.lat)]
     crs={'init':'epsg:4326'}
-    return (exec("{}=gpd.GeoDataFrame(df, crs=crs, geometry=geometry)" .format(site)))
+    return gpd.GeoDataFrame(df, crs=crs, geometry=geometry)
+   
