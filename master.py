@@ -1,16 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Sep 11 09:16:01 2019
-
-@author: ow4253
-"""
-import pandas as pd
 from geopoints import buffer, geosites, bounds, geoiqi
 from dbconnectFunc import iqiDB
-#from iqibands import uniband
+#Create map of existing sites, buffers, bounds, iqi
 dates=['201907','201908']
-
-#Create map of existing sites, buffers and bounds
 sites=geosites()
 buf=buffer()
 bound=bounds()
@@ -22,8 +13,9 @@ for i, row in bound.iterrows():
     site='_'+str(i)
     df=iqiDB(bd,dates)
     usid_list.append(i)
-    exec("{}=geoiqi(df,site)" .format(site))
+    exec("{}=geoiqi(df)" .format(site))
 
-#Plot sites and boundary of each site    
+#Plot sites and boundary of each site
+    
 ax=sites.plot(color='blue', edgecolor='black',markersize=5)
 buf.plot(ax=ax, color='red',alpha=0.7)
